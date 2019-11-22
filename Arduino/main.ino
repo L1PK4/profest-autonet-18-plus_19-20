@@ -41,10 +41,10 @@ void loop()
     while(!Serial.available());    
     command = Serial.readStringUntil('\n');
 //      Parser
-    speed = command[1];
-    direction = command[2]>>1;
-    isturning = command[2]>>1;
-    angle = command[2]>>1;
+    speed = command[0];
+    direction = (command[1] & 1)>>1;
+    isturning = (command[1] & 2)>>1;
+    angle = (command[2] & 4)>>1;
 //      OCHEN' LIPKA
     analogWrite(PWM1, speed);
     digitalWrite(INA1, direction);
