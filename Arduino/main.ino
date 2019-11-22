@@ -11,6 +11,7 @@
 */
 int     speed = 0;
 bool    angle = 0,
+        isturning = 0,
         direction = true;
 
 void setup()
@@ -42,10 +43,13 @@ void loop()
 //      Parser
     speed = command[1];
     direction = command[2]>>1;
+    isturning = command[2]>>1;
     angle = command[2]>>1;
 //      OCHEN' LIPKA
     analogWrite(PWM1, speed);
     digitalWrite(INA1, direction);
     digitalWrite(INB1, !direction);
-    
+    analogWrite(PWM1, isturning?200:0);
+    digitalWrite(INA2, angle);
+    digitalWrite(INB2, !angle);
 }
