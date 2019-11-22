@@ -9,9 +9,9 @@
 *   1 - speed
 *
 */
-int     speed = 0,
-        angle = 0;
-bool    direction = true;
+int     speed = 0;
+bool    angle = 0,
+        direction = true;
 
 void setup()
 {
@@ -38,14 +38,12 @@ String command = "";
 void loop()
 {
     while(!Serial.available());    
-    command = Serial.read();
-    
-    
-    // Parser
-
-    //
-
-
+    command = Serial.readStringUntil('\n');
+//      Parser
+    speed = command[1];
+    direction = command[2]>>1;
+    angle = command[2]>>1;
+//      OCHEN' LIPKA
     analogWrite(PWM1, speed);
     digitalWrite(INA1, direction);
     digitalWrite(INB1, !direction);
