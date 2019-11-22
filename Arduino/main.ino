@@ -4,7 +4,11 @@
 #define INA2 5
 #define INB2 6
 #define PWM2 7
-
+/*
+*   2 - turn
+*   1 - speed
+*
+*/
 int     speed = 0,
         angle = 0;
 bool    direction = true;
@@ -25,13 +29,23 @@ void set_speed(int sp)
 {
     if(sp > 0 && sp < 256)
         speed = sp;
+    else
+        speed = (sp > 256)?255:0;
 }
+    
+String command = "";
 
 void loop()
 {
-    String command = "";
     while(!Serial.available());    
     command = Serial.read();
+    
+    
+    // Parser
+
+    //
+
+
     analogWrite(PWM1, speed);
     digitalWrite(INA1, direction);
     digitalWrite(INB1, !direction);
