@@ -47,8 +47,8 @@ void loop()
     angle = (command[2] & 4)>>1;
 //      OCHEN' LIPKA
     analogWrite(PWM1, speed);
-    digitalWrite(INA1, direction);
-    digitalWrite(INB1, !direction);
+    digitalWrite(INA1, (speed != 0)?direction:LOW);
+    digitalWrite(INB1, (speed != 0)?!direction:LOW);
     analogWrite(PWM1, isturning?200:0);
     digitalWrite(INA2, angle);
     digitalWrite(INB2, !angle);
