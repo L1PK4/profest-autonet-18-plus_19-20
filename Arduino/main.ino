@@ -9,9 +9,9 @@
 *   1 - speed
 *
 */
-int     speed = 0;
+int     speed = 0,
+        turnspeed = 0;
 bool    angle = 0,
-        isturning = 0,
         direction = true;
 
 void setup()
@@ -42,14 +42,19 @@ void loop()
     command = Serial.readStringUntil('\n');
 //      Parser
     speed = command[0];
-    direction = (command[1] & 1)>>1;
-    isturning = (command[1] & 2)>>1;
-    angle = (command[1] & 4)>>1;
+    turnspeed = command[1];
+    // direction = (command[1] & 1)>>1;
+    // isturning = (command[1] & 2)>>1;
+    // angle = (command[1] & 4)>>1;
 //      OCHEN' LIPKA
     analogWrite(PWM1, speed);
-    digitalWrite(INA1, (speed != 0)?direction:LOW);
-    digitalWrite(INB1, (speed != 0)?!direction:LOW);
-    analogWrite(PWM1, isturning?200:0);
-    digitalWrite(INA2, isturning?angle:LOW);
-    digitalWrite(INB2, isturning?!angle:LOW);
+    digitalWrite(INA1, (speed > 0)?direction:!direction);
+    digitalWrite(INB1, (speed > 0)?!direction:direction);
+    analogWrite(PWM1, turnspeed);
+    digitalWrite(INA2, (turnspeed > 0)?angle:!angle);
+    digitalWrite(INB2, (turnspeed > 0)?!angle:angle);
+}
+    // analogWrite(PWM1, isturning?200:0);
+    // digitalWrite(INA2, isturning?angle:LOW);
+    // digitalWrite(INB2, isturning?!angle:LOW);
 }
