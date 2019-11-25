@@ -34,7 +34,7 @@ void loop()
     speed =     command[0];
     turnspeed = command[1];
     direction = command[2] & 1;
-    angle =     command[2] & 2
+    angle =     command[2] & 2;
     // direction = (command[1] & 1)>>1;
     // isturning = (command[1] & 2)>>1;
     // angle = (command[1] & 4)>>1;
@@ -49,4 +49,3 @@ void loop()
     // analogWrite(PWM1, isturning?200:0);
     // digitalWrite(INA2, isturning?angle:LOW);
     // digitalWrite(INB2, isturning?!angle:LOW);
-}
